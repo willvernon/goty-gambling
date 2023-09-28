@@ -1,5 +1,5 @@
 import React from 'react'
-import { Separator } from '../ui/separator'
+import { Separator } from './ui/separator'
 import {
 	ApertureIcon,
 	Code2Icon,
@@ -16,7 +16,7 @@ import Link from 'next/link'
 
 function glowbar() {
 	return (
-		<nav className='fixed bottom-0 w-full bg-transparent text-white py-4'>
+		<nav className='fixed bottom-0 w-full mx-auto left-0 bg-transparent text-white py-4'>
 			<div className='grid items-start justify-center'>
 				<div className='relative'>
 					<div className='absolute -inset-3 bg-gradient-to-r from-blue-600 to-pink-600 rounded-3xl blur-xl opacity-70 '></div>

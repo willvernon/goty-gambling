@@ -1,6 +1,6 @@
 import Navbar from '@/components/navbar'
 import { Sidebar } from '@/components/sidebar'
-import GlowBar from '@/components/dashboard/glowbar'
+import GlowBar from '@/components/glowbar'
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 
