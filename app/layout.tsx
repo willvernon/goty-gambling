@@ -1,6 +1,6 @@
 import SupabaseProvider from './supabase-provider';
-import Footer from '@/components/ui/Footer';
-import Navbar from '@/components/ui/Navbar';
+import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
 import { PropsWithChildren } from 'react';
 import 'styles/main.css';
 

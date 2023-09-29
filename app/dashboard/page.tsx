@@ -3,10 +3,12 @@ import {
   getUserDetails,
   getSubscription
 } from '@/app/supabase-server';
+import { AddBetCard } from '@/components/Dashboard/AddBet';
+
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
 
-export default async function Account() {
+export default async function DashboardPage() {
   const [session, userDetails, subscription] = await Promise.all([
     getSession(),
     getUserDetails(),
@@ -31,34 +33,46 @@ export default async function Account() {
           </p>
         </div>
       </div>
-      <div className="p-4">
-        <Card title="Your Plan">
-          <div className="mt-8 mb-4 text-xl font-semibold"></div>
-        </Card>
-        <Card
-          title="Your Name"
-          description="Please enter your full name, or a display name you are comfortable with."
-          footer={
-            <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-              <p className="pb-4 sm:pb-0">64 characters maximum</p>
-            </div>
-          }
-        >
-          <div className="mt-8 mb-4 text-xl font-semibold"></div>
-        </Card>
-        <Card
-          title="Your Email"
-          description="Please enter the email address you want to use to login."
-          footer={
-            <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-              <p className="pb-4 sm:pb-0">
-                We will email you to verify the change.
-              </p>
-            </div>
-          }
-        >
-          <div className="mt-8 mb-4 text-xl font-semibold"></div>
-        </Card>
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+        <div className="md:col-start-2 md:col-span-4 bg-blue-400">01</div>
+        <div className="md:col-start-1 md:col-end-5 bg-gray-900">
+          <Card title="Your Plan">
+            <div className="mt-8 mb-4 text-xl font-semibold"></div>
+          </Card>
+          <Card
+            title="Your Name"
+            description="Please enter your full name, or a display name you are comfortable with."
+            footer={
+              <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                <p className="pb-4 sm:pb-0">64 characters maximum</p>
+              </div>
+            }
+          >
+            <div className="mt-8 mb-4 text-xl font-semibold"></div>
+          </Card>
+          <Card
+            title="Your Email"
+            description="Please enter the email address you want to use to login."
+            footer={
+              <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                <p className="pb-4 sm:pb-0">
+                  We will email you to verify the change.
+                </p>
+              </div>
+            }
+          >
+            <div className="mt-8 mb-4 text-xl font-semibold"></div>
+          </Card>
+        </div>
+
+        <div className="md:col-end-7 md:col-span-2 bg-blue-400">
+          <AddBetCard />
+        </div>
+        <div className="md:col-start-1 md:col-end-7 bg-blue-400">04</div>
+      </div>
+      <div className="flex flex-col p-4">
+        <div></div>
+        <div></div>
       </div>
     </section>
   );
