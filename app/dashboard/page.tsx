@@ -3,7 +3,7 @@ import {
   getUserDetails,
   getSubscription
 } from '@/app/supabase-server';
-import { AddBetCard } from '@/components/Dashboard/AddBet';
+import BetCard from '@/components/Dashboard/BetCard';
 
 import { redirect } from 'next/navigation';
 import { ReactNode } from 'react';
@@ -35,9 +35,40 @@ export default async function DashboardPage() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
         <div className="md:col-start-2 md:col-span-4 bg-blue-400">01</div>
-        <div className="md:col-start-1 md:col-end-5 bg-gray-900">
-          <Card title="Your Plan">
-            <div className="mt-8 mb-4 text-xl font-semibold"></div>
+        <div className="ml-5 md:col-start-1 md:col-end-5 ">
+          <Card title="Live Play's">
+            <div className="flex flex-row space-x-5">
+              <Card
+                title="Cowboys -12"
+                description=""
+                footer={
+                  <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                    <p className="pb-4 sm:pb-0">
+                      <span className="">Payout:</span> 7 units
+                    </p>
+                  </div>
+                }
+              >
+                <div className="mt-1 text-lg text-zinc-400">Line: -183</div>
+                <div className="mt-1 text-lg text-zinc-400">Opp: 49ers</div>
+                <div className="mt-1 text-lg text-zinc-400">Unit Size: 3u</div>
+                <div className="mt-1 text-lg text-zinc-400"></div>
+              </Card>
+              <Card
+                title="Your Name"
+                description="Please enter your full name, or a display name you are comfortable with."
+                footer={
+                  <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                    <p className="pb-4 sm:pb-0">
+                      <span>Payout:</span> 7 units
+                    </p>
+                  </div>
+                }
+              >
+                <div className="mt-8 mb-4 text-xl font-semibold"></div>
+              </Card>
+            </div>
+            <div className="mt-8 mb-4 text-xl font-">Good Luck Have Fun</div>
           </Card>
           <Card
             title="Your Name"
@@ -51,13 +82,11 @@ export default async function DashboardPage() {
             <div className="mt-8 mb-4 text-xl font-semibold"></div>
           </Card>
           <Card
-            title="Your Email"
+            title="View Betting History"
             description="Please enter the email address you want to use to login."
             footer={
               <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-                <p className="pb-4 sm:pb-0">
-                  We will email you to verify the change.
-                </p>
+                <p className="pb-4 sm:pb-0">Here will be card history.</p>
               </div>
             }
           >
@@ -65,10 +94,30 @@ export default async function DashboardPage() {
           </Card>
         </div>
 
-        <div className="md:col-end-7 md:col-span-2 bg-blue-400">
-          <AddBetCard />
+        <div className="md:col-end-7 md:col-span-2 ">
+          <BetCard />
         </div>
-        <div className="md:col-start-1 md:col-end-7 bg-blue-400">04</div>
+        <div className="md:col-start-1 md:col-end-7 p-5 mt-[-30px]">
+          <Card
+            title="View Betting History"
+            description="Please enter the email address you want to use to login."
+            footer={
+              <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                <p className="pb-4 sm:pb-0">Here will be card history.</p>
+              </div>
+            }
+          >
+            <div className="flex flex-row space-x-5 mt-8 mb-4 text-xl font-semibold ">
+              <Card title="Your Play ">
+                <div className="mt-8 mb-4 text-xl font-semibold"></div>
+              </Card>
+
+              <Card title="Your Play ">
+                <div className="mt-8 mb-4 text-xl font-semibold"></div>
+              </Card>
+            </div>
+          </Card>
+        </div>
       </div>
       <div className="flex flex-col p-4">
         <div></div>

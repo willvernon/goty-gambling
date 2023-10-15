@@ -1,4 +1,9 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { Session, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { Database } from '@/lib/betschema';
+
+type Bets = Database['public']['Tables']['bets']['Row'];
 
 import { Button } from '@/components/ui/button';
 import {
@@ -18,8 +23,38 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { supabase } from '@supabase/auth-ui-shared';
 
-export function AddBetCard() {
+export default function AddBetCard() {
+  const [team, setTeam] = useState<string>('');
+  const [opp, setOpp] = useState<string>('');
+  const [betType, setBetType] = useState<string>('');
+  const [odds, setOdds] = useState<number>(0);
+  const [units, setUnits] = useState<number>(0);
+  const [result, setResult] = useState<number>(0);
+  const [profit, setProfit] = useState<number>(0);
+
+  const placeBet = async () => {
+    // Here is calling to supabase to store the bet
+    if (team && opp && betType && odds && units) {
+      const { data, error } = await supabase.from('bets').insert([
+        {
+          team: team,
+          opp: opp,
+          bet_type: betType,
+          odds: odds,
+          units: units
+        }
+      ]);
+      if (error) {
+        console.error('Error adding bet:', error);
+      } else {
+        console.log('Bet added:', data);
+        // Clear fields or navigate to another page, etc.
+      }
+    }
+  };
+
   return (
     <Card className="w-full h-full">
       <CardHeader>
@@ -30,29 +65,55 @@ export function AddBetCard() {
         <form>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Team</Label>
-              <Input id="name" placeholder="Name of your project" />
+              <Label htmlFor="team">Team</Label>
+              <Input
+                id="team"
+                type="text"
+                placeholder="Team"
+                value={team}
+                onChange={(e) => setTeam(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="opp">Opponent</Label>
+              <Input
+                id="opp"
+                type="text"
+                placeholder="Opponent"
+                value={opp}
+                onChange={(e) => setOpp(e.target.value)}
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Units/Cash</Label>
-              <Input id="name" placeholder="Name of your project" />
+              <Input
+                id="units"
+                placeholder="Units:"
+                value={units}
+                onChange={(e) => setUnits(parseInt(e.target.value))}
+              />
             </div>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Odds</Label>
-              <Input id="name" placeholder="Name of your project" />
+              <Input
+                id="odds"
+                placeholder="Units:"
+                value={odds}
+                onChange={(e) => setOdds(parseInt(e.target.value))}
+              />
             </div>
 
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework">Framework</Label>
+              <Label htmlFor="bet_type">Bet Type</Label>
               <Select>
-                <SelectTrigger id="framework">
+                <SelectTrigger id="bet_type">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent position="popper">
-                  <SelectItem value="next">Next.js</SelectItem>
-                  <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                  <SelectItem value="astro">Astro</SelectItem>
-                  <SelectItem value="nuxt">Nuxt.js</SelectItem>
+                  <SelectItem value="ml">Moneyline</SelectItem>
+                  <SelectItem value="spread">Spread</SelectItem>
+                  <SelectItem value="over">Over</SelectItem>
+                  <SelectItem value="under">Under</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -61,7 +122,7 @@ export function AddBetCard() {
       </CardContent>
       <CardFooter className="flex justify-between">
         <Button variant="outline">Cancel</Button>
-        <Button>Deploy</Button>
+        <Button onClick={addBet}>Add Bet</Button>
       </CardFooter>
     </Card>
   );
